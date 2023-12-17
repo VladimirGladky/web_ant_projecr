@@ -7,8 +7,6 @@ final class NewsInitial extends NewsState {}
 
 class NewsLoading extends NewsState {}
 
-class NewsRefresh extends NewsState {}
-
 class NewsSuccess extends NewsState {
   final List<News> news;
 

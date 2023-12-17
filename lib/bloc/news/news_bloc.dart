@@ -21,8 +21,6 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
   ) async {
     emit(NewsLoading());
 
-    await Future.delayed(Duration(seconds: 3));
-
     try {
       final pagination = await newsService.getNews();
 

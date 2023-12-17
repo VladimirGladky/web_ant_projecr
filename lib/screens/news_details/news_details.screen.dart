@@ -1,6 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:web_ant_project/models/news.dart';
 import 'package:intl/intl.dart';
 
@@ -12,8 +11,15 @@ class NewsDetailsScreen extends StatelessWidget {
 
   final News news;
 
+  Future<void> _launchInWebView(Uri url) async {
+    if (!await launchUrl(url, mode: LaunchMode.inAppWebView)) {
+      throw Exception('Could not launch $url');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final Uri _url = Uri.parse(news.sourceUrl);
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
@@ -52,7 +58,9 @@ class NewsDetailsScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 25),
               child: MaterialButton(
-                onPressed: () {},
+                onPressed: () {
+                  _launchInWebView(_url);
+                },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(6)),
                 color: Colors.white,

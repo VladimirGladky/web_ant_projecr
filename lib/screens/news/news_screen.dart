@@ -1,7 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:web_ant_project/bloc/news/news_bloc.dart';
 import 'package:web_ant_project/screens/news_details/news_details.screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_ant_project/services/news_services.dart';
 
 class NewsScreen extends StatefulWidget {
   const NewsScreen({super.key});
@@ -16,7 +18,6 @@ class _NewsScreenState extends State<NewsScreen> {
     return BlocBuilder<NewsBloc, NewsState>(
       builder: (context, state) {
         return switch (state) {
-          final NewsRefresh _ => const ListForRefresh(),
           final NewsInitial _ => const ListForInitial(),
           final NewsLoading _ => const ListForLoading(),
           final NewsFailure _ => const ListForFailure(),
@@ -42,7 +43,9 @@ class ListForSuccess extends StatelessWidget {
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.refresh),
-          onPressed: () {},
+          onPressed: () {
+            context.read<NewsBloc>().add(RefreshNews());
+          },
         ),
         title: const Text('Все новости', style: TextStyle(fontSize: 20)),
       ),
@@ -139,30 +142,12 @@ class ListForInitial extends StatelessWidget {
           centerTitle: true,
           leading: IconButton(
             icon: const Icon(Icons.refresh),
-            onPressed: () {},
+            onPressed: () {
+              NewsBloc(NewsService(Dio())).add(RefreshNews());
+            },
           ),
           title: const Text('Все новости', style: TextStyle(fontSize: 20)),
         ),
         body: const SizedBox.shrink());
-  }
-}
-
-class ListForRefresh extends StatelessWidget {
-  const ListForRefresh({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          leading: IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: () {},
-          ),
-          title: const Text('Все новости', style: TextStyle(fontSize: 20)),
-        ),
-        body: const SizedBox());
   }
 }

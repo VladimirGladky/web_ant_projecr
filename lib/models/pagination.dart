@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'dart:convert';
 
 part 'pagination.freezed.dart';
 part 'pagination.g.dart';
