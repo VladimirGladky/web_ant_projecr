@@ -106,7 +106,27 @@ class ListForFailure extends StatelessWidget {
           ),
           title: const Text('Все новости', style: TextStyle(fontSize: 20)),
         ),
-        body: const Center(child: Text('ошибка')));
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Center(
+                child: Text(
+              'Ошибка',
+              style: TextStyle(fontSize: 20),
+            )),
+            Center(
+              child: MaterialButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(6)),
+                  color: Colors.white,
+                  elevation: 1,
+                  onPressed: () {
+                    context.read<NewsBloc>().add(RefreshNews());
+                  },
+                  child: const Text('Попробуйте ещё раз')),
+            )
+          ],
+        ));
   }
 }
 
@@ -126,7 +146,15 @@ class ListForLoading extends StatelessWidget {
           ),
           title: const Text('Все новости', style: TextStyle(fontSize: 20)),
         ),
-        body: const Center(child: CircularProgressIndicator()));
+        body: const Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(child: CircularProgressIndicator(color: Colors.blue)),
+            Center(
+              child: Text('Загрузка новостей...'),
+            )
+          ],
+        ));
   }
 }
 
@@ -142,9 +170,7 @@ class ListForInitial extends StatelessWidget {
           centerTitle: true,
           leading: IconButton(
             icon: const Icon(Icons.refresh),
-            onPressed: () {
-              NewsBloc(NewsService(Dio())).add(RefreshNews());
-            },
+            onPressed: () {},
           ),
           title: const Text('Все новости', style: TextStyle(fontSize: 20)),
         ),
