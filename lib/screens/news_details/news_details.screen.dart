@@ -19,7 +19,7 @@ class NewsDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Uri _url = Uri.parse(news.sourceUrl);
+    final Uri url = Uri.parse(news.sourceUrl);
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
@@ -59,7 +59,7 @@ class NewsDetailsScreen extends StatelessWidget {
               padding: const EdgeInsets.only(top: 25),
               child: MaterialButton(
                 onPressed: () {
-                  _launchInWebView(_url);
+                  _launchInWebView(url);
                 },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(6)),
